@@ -13,17 +13,16 @@
 <body>
     
     <div class="list__background">
+
         
-        <form id="form">
-            <input id="text" type="text" placeholder="Start a new item here:" minlength="2" maxlength="25">
-            
-        </form>
-      
-          <ul id="todos"></ul>
+            <form class="form-title">
+                <input class="form-title__input" type="text" placeholder="Title" minlength="2" maxlength="25">
+              </form>
+          
+              <ul class="todo-list"></ul>
+        
 
     </div>
 
 </body>
 </html>
-
-<!-- <i class="material-icons"> add </iclass></i> -->
