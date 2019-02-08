@@ -26,25 +26,28 @@ input {
     padding: 5px;
     border: solid grey 1px;
     border-radius: 5px;
-    color: grey;
+    color: #696969;
     background-color: lightgray;
 }
 
 li {
-    width: 300px;
+    width: 290px;
     height: 50px;
     padding: 5px;
     border: solid grey 1px;
     border-radius: 5px;
     background-color: darkseagreen;
     list-style-type: none;
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
 }
 
-/*
 i {
     font-size: 30px;
     width: 25px;
     height: 25px;
-    color: grey;
+    color: #696969;
     font-weight: bold;
+    cursor: pointer;
 }

@@ -15,10 +15,11 @@ form.addEventListener('submit', (event) => {
     todo.textContent = text;
 
     const iconRemove = document.createElement('i');
-    todo.classList.add('todo');
+    todo.appendChild(iconRemove);
     iconRemove.textContent = "remove";
+    iconRemove.setAttribute('class','material-icons');
 
-    todo.addEventListener('click', () => { // iconRemove
+    iconRemove.addEventListener('click', () => {
       todo.remove();
     });
 
