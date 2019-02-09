@@ -1,0 +1,37 @@
+* {
+    font-size: 15px;
+    font-family: 'Roboto', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: row;
+}
+
+.new-list {
+    width: auto;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+}
+
+.list__background {
+    width: 400px;
+    min-height: 600px;
+    height: auto;
+    background-color: darkcyan;
+    border: solid grey 1px;
+    border-radius: 5px;
+    margin: 10px;
+}
+
+.input-newList {
+    margin-top: 40px;
+    margin-left: 30px;
+    width: 300px;
+    padding: 5px;
+    border: solid grey 1px;
+    border-radius: 5px;
+    color: #696969;
+    background-color: lightgray;
+}
