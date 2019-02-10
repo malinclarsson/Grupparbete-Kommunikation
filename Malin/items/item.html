@@ -6,18 +6,23 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <link rel="stylesheet" href="list.css">
-    <script src="list.js" defer></script>
-    <title>list</title>
+    <link rel="stylesheet" href="item.css">
+    <script src="item.js" defer></script>
+    <title>Items</title>
 </head>
 <body>
-        <div class = "new-list"></div> <!--      -->
-
-        <form class="form-list">
-            <input class="input-newList" type="text" 
-            placeholder="Start a new list..." minlength="2" maxlength="35"> 
+    
+    <div class="list__background">
+        
+        <form id="form">
+            <input id="text" type="text" 
+            placeholder="Start a new item here..." minlength="2" maxlength="30">
+            
         </form>
       
+          <ul class="todos"></ul>
+
+    </div>
 
 </body>
 </html>
