@@ -82,7 +82,6 @@ listForm.addEventListener('submit', (event) => {
 
     */
 //================ Hehe ================//
-
   
   let lists = [];
     // { id: "3nApQ", name: "list-title", timestamp: "13:37" }
@@ -203,7 +202,7 @@ listForm.addEventListener('submit', (event) => {
       }
       index++;
     }
-        render();
+    render();
   }
 
   function id () {
@@ -232,7 +231,7 @@ listForm.addEventListener('submit', (event) => {
     this.belongsTo = belongsTo;
   } 
 
-  let listForm = document.querySelector('.list-inputText');
+  let listForm = document.querySelector('.list-form');
   listForm.addEventListener('submit', createList(listForm.value)); 
 
   document.addEventListener('submit', function (e) {
@@ -241,8 +240,6 @@ listForm.addEventListener('submit', (event) => {
 
   // Lyssna på lägg till nytt kort
   // Lyssna på ta bort kort
-
-      
-// Oscars rad: 
+  // Redigera och flytta kort
 
                               
