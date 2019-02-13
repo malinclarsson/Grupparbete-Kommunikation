@@ -18,6 +18,7 @@ export default {
     update: function(newCount) {
       let p = this.p;
       p.textContent = newCount;
-    }
+    } 
     */
   };
+

@@ -1,0 +1,106 @@
+
+<!DOCTYPE html><html lang='en' class=''>
+<head>
+  <script src='https://static.codepen.io/assets/editor/live/console_runner-1df7d3399bdc1f40995a35209755dcfd8c7547da127f6469fd81e5fba982f6af.js'></script>
+  <script src='https://static.codepen.io/assets/editor/live/css_reload-5619dc0905a68b2e6298901de54f73cefe4e079f65a75406858d92924b4938bf.js'></script>
+  <meta charset='UTF-8'><meta name="robots" content="noindex">
+  <link rel="shortcut icon" type="image/x-icon" href="https://static.codepen.io/assets/favicon/favicon-8ea04875e70c4b0bb41da869e81236e54394d63638a1ef12fa558a4a835f1164.ico" />
+  <link rel="mask-icon" type="" href="https://static.codepen.io/assets/favicon/logo-pin-f2d2b6d2c61838f7e76325261b7195c27224080bc099486ddd6dccb469b8e8e6.svg" color="#111" />
+  <link rel="canonical" href="https://codepen.io/malatest/pen/OrxBbE?editors=1010" />
+
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css'>
+<style class="cp-pen-styles">
+
+body {
+  background: gray;
+}
+
+.fill {
+  background-image: url("https://source.unsplash.com/random/150x150");
+  position: relative;
+  height: 150px;
+  width: 150px;
+  top: 5px;
+  left: 5px;
+  cursor: pointer;  
+}
+
+.hold {
+  border: solid 5px #ccc;
+}
+
+.empty {
+  display: inline-block;
+  height: 160px;
+  width: 160px;
+  margin: 10px;
+  border: solid 3px black;
+  background: white;
+}
+
+.hovered {
+  background: #f4f4f4;
+  border-style: dashed;
+}
+</style></head><body>
+	<div class="empty">
+    <div class="fill" draggable="true"> </div>
+  </div>
+  <div class="empty"></div>
+  <div class="empty"></div>
+  <div class="empty"></div>
+  <div class="empty"></div>
+<script src='https://static.codepen.io/assets/common/stopExecutionOnTimeout-de7e2ef6bfefd24b79a3f68b414b87b8db5b08439cac3f1012092b2290c719cd.js'></script>
+<script >const fill = document.querySelector('.fill');
+const empties = document.querySelectorAll('.empty');
+
+fill.addEventListener('dragstart', dragStart);
+fill.addEventListener('dragend', dragEnd);
+
+
+for (const empty of empties) {
+	empty.addEventListener('dragover', dragOver);
+	empty.addEventListener('dragenter', dragEnter);
+	empty.addEventListener('dragleave', dragLeave);
+	empty.addEventListener('drop', dragDrop);
+}
+
+function dragOver(e) {
+	// . Most areas of a web page or application are not valid places to drop data. Thus, the default handling of these events is not to allow a drop.
+	e.preventDefault();
+}
+
+function dragEnter(e) {
+	e.preventDefault();
+	this.classList.add('hovered');
+}
+
+function dragLeave() {
+	this.classList.remove('hovered');
+}
+
+function dragDrop() {
+	this.classList = 'empty';
+	// append method removes from original place
+	// and appends it at the end current element
+	this.append(fill);
+}
+
+function dragStart() {
+	//thist refers to original element
+	//but drag element copies this element
+	//thus to apply classes only to original we
+	//need to add small delay
+	this.classList.add('hold');
+	setTimeout(() => {
+		this.className = '';
+	}, 0);
+}
+
+function dragEnd() {
+	this.style.visibility = 'visible';
+	this.className = 'fill';
+}
+//# sourceURL=pen.js
+</script>
+</body></html>
