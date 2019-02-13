@@ -160,7 +160,8 @@ listForm.addEventListener('submit', (event) => {
       target.appendChild(item); // place 'target' in the 'item'-div 
 
       let itemRemove = document.createElement('i'); // creates a new <i>, stored in 'itemRemove'
-        itemRemove.setAttribute('class','material-icons'); // give it the class 'material-icons'
+        itemRemove.classList.add('material-icons');
+         // give it the class 'material-icons'
         itemRemove.textContent = "remove"; // the <i>'s content is "remove" - that specifies WHICH icon.
         item.appendChild(itemRemove); // place 'itemRemove' in the 'item'-div
   }

@@ -84,21 +84,25 @@ listForm.addEventListener('submit', (event) => {
 //================ Hehe ================//
   
   let lists = [];
-    // { id: "3nApQ", name: "list-title", timestamp: "13:37" }
+    // { id: "3nApQ", title: "list-title", timestamp: "13:37" }
 
   let items = [];
-    // { id: "2jMN2", name: "title", text: "loremipsum", timestamp: "13:37", belongsTo: "id" }
+    // { id: "2jMN2", title: "title", text: "loremipsum", timestamp: "13:37", belongsTo: "id" }
   
+    
+  let listdiv = document.querySelector(".lists");
+
   function render () {
-    renderList();
-    renderItems();
+    listdiv.innerHTML = "";
+    renderList(lists);
+    renderItems(items);
   }
 
   function renderList (lists) {
     for (let each of lists) {
-
       let list = document.createElement('div');
       list.classList.add('list');
+      list.id = each.id;
 
       let listTitle = document.createElement("h1");
       listTitle.classList.add("list-title");
@@ -111,6 +115,8 @@ listForm.addEventListener('submit', (event) => {
       list.appendChild(listRemove);
       list.appendChild(listTitle);
       list.appendChild(addItemBox());
+
+      listdiv.appendChild(list);
       }  
   }
 
@@ -163,14 +169,16 @@ listForm.addEventListener('submit', (event) => {
       let itemRemove = document.createElement('i');
         item.appendChild(itemRemove);
         itemRemove.textContent = "remove";
-        itemRemove.setAttribute('class','material-icons');
+        itemRemove.classList.add('material-icons');
   }
 }
 
   function createList (title) {
     // Skapa nya objekt med hjälp av Konstruktorn List - och sedan pusha in dessa i List-arrayn
     let list = new List(title);
+    console.log("I'm being called");
     lists.push(list);
+    console.log(list);
     render();
   }
 
@@ -232,14 +240,35 @@ listForm.addEventListener('submit', (event) => {
   } 
 
   let listForm = document.querySelector('.list-form');
-  listForm.addEventListener('submit', createList(listForm.value)); 
+  let listInput = document.querySelector('.list-inputText');
+  listForm.addEventListener('submit', function(e) {
+    e.preventDefault();
+    createList(listInput.value);
+    listInput.value = "";
+  }); 
+  
+  document.addEventListener('click', function (e) {
+        if (e.target.classList.contains(".add-item-button")) {
+          let parent = e.target.parentElement;
+          let parentId = e.target.parentElement.parentElement.id;
+          let itemTitle = parent.querySelector(".add-item-tiel").value;
+          let itemText = parent.querySelector(".add-item-text").value;
 
-  document.addEventListener('submit', function (e) {
-        
+          console.log('button is clicked');
+
+          createItem(parentTitle, parentText, parentId);  //<-----------------  Här är vi nu.
+        } 
+
   });
 
+
   // Lyssna på lägg till nytt kort
+    // queryselecta "lägg til kort"-inputs + knappen
+    // Kalla på createItem med de values som finns i inputarna
+    
+
+
   // Lyssna på ta bort kort
   // Redigera och flytta kort
 
-                              
+  render();
