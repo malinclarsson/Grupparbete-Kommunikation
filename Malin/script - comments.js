@@ -84,63 +84,61 @@ listForm.addEventListener('submit', (event) => {
 //================ Hehe ================//
 
   
-  let lists = [];
-    // { id: "3nApQ", name: "list-title", timestamp: "13:37" }
+  let lists = []; //empty array, that holds the objects from input ex; { id: "3nApQ", name: "list-title", timestamp: "13:37" }
 
-  let items = [];
-    // { id: "2jMN2", name: "title", text: "loremipsum", timestamp: "13:37", belongsTo: "id" }
+  let items = []; //empty array, that holds the objects from input ex; { id: "2jMN2", name: "title", text: "loremipsum", timestamp: "13:37", belongsTo: "id" }
   
-  function render () {
-    renderList();
-    renderItems();
+  function render () { // calls both render functions
+    renderList();  // calls renderList  - which creates new lists
+    renderItems(); // calls renderItems - which creates new items
   }
 
-  function renderList (lists) {
-    for (let each of lists) {
+  function renderList (lists) { // the function takes the lists-array as an argument
+    for (let each of lists) { //for every list created - loop through the array
 
-      let list = document.createElement('div');
-      list.classList.add('list');
+      let list = document.createElement('div'); // creates a new <div>, stored in 'list'
+      list.classList.add('list'); // give it the class 'lists'
 
-      let listTitle = document.createElement("h1");
-      listTitle.classList.add("list-title");
-      listTitle.textContent = each.title;
+      let listTitle = document.createElement("h1"); // creates a new <h1>, stored in 'listTitle'
+      listTitle.classList.add("list-title"); // give it the class 'lists'
+      listTitle.textContent = each.title; // the <h1>'s content is the current indexed keys value.
       
-      let listRemove = document.createElement('i');
-      listRemove.textContent = "remove";
-      listRemove.classList.add('material-icons');
+      let listRemove = document.createElement('i'); // creates a new <i>, stored in 'listRemove'
+      listRemove.classList.add('material-icons'); // give it the class 'material-icons'
+      listRemove.textContent = "remove"; // the <i>'s content is "remove" - that specifies WHICH icon.
 
-      list.appendChild(listRemove);
-      list.appendChild(listTitle);
-      list.appendChild(addItemBox());
+      list.appendChild(listRemove); // place 'listRemove' in the 'list'-element
+      list.appendChild(listTitle); // place 'listTitle' in the 'list'-element
+      list.appendChild(addItemBox()); // place 'addItemBox' in the 'list'-element
       }  
   }
 
-  function addItemBox () {
-    let addItem = document.createElement("div");
-    addItem.classList.add("add-item");
+  function addItemBox() { // function that adds input-elements to new items
+    let addItem = document.createElement("div"); // creates a new <div>, stored in 'addItem'
+    addItem.classList.add("add-item"); // give it the class 'add-item'
 
-    let addItemTitle = document.createElement("input");
-    addItemTitle.type = "text";
-    addItemTitle.classList.add("add-item-title");
+    let addItemTitle = document.createElement("input"); // creates a new <input>, stored in 'addItemTitle'. (The items title)
+    addItemTitle.classList.add("add-item-title"); // give it the class 'add-item-title'
+    addItemTitle.type = "text"; // the <input>'s value should be text
 
-    let addItemText = document.createElement("input");
-    addItemText.type = "text";
-    addItemText.classList.add("add-item-text");
+    let addItemText = document.createElement("input"); // creates a new <input>, stored in 'addItemText'. (The items description)
+    addItemText.classList.add("add-item-text"); // give it the class 'add-item-text'
+    addItemText.type = "text"; // the <input>'s value should be text
 
-    let addItemButton = document.createElement("button");
-    addItemButton.classList.add("add-item-button");
-    addItemButton.textContent = "add a new item";
+    let addItemButton = document.createElement("button"); // creates a new <button>, stored in 'addItemButtom'.
+    addItemButton.classList.add("add-item-button"); // give it the class 'add-item-button'
+    addItemButton.textContent = "add a new item"; // the <button>'s content in "add a new item"
 
 
-    addItem.appendChild(addItemTitle);
-    addItem.appendChild(addItemText);
-    addItem.appendChild(addItemButton);
+    addItem.appendChild(addItemTitle); // place 'addItemTitle' in the 'addItem'-div    
+    addItem.appendChild(addItemText); // place 'addItemText' in the 'addItem'-div 
+    addItem.appendChild(addItemButton); // place 'addItemButton' in the 'addItem'-div 
 
-    return addItem;
+    return addItem; // return the value from elements inside the 'addItem'-div ('addItemTitle', 'addItemText', 'addItemButton')
   }
 
-  function renderItems (items) {
-    for (let each in items) {
+  function renderItems (items) { // function that adds input-elements to new items <----------------------
+    for (let each in items) { // for every item created - loop through the array
 
       let item = document.createElement('div');
       item.classList.add('item');
