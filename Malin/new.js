@@ -68,8 +68,8 @@ let listdiv = document.querySelector(".lists");
     createList(listInput.value);
     listInput.value = "";
   }); 
-  //=========== xxxfunction timestamp =========//
-  document.addEventListener('click', function (e) { //                                           <------------------------------------------------------------------------------  
+  //=========== inside items =========//
+  document.addEventListener('click', function (e) { // <-- borde inte lyssna på document kanske?                <------------------------------------------------------------------------------  
     console.log("listened to input");
 
     if (e.target.classList.contains("add-item-button")) {
@@ -79,7 +79,7 @@ let listdiv = document.querySelector(".lists");
       let itemText = parent.querySelector(".add-item-text").value;
 
       createItem();  
-        } 
+    } 
   });
 
 //================================ render ================================//
