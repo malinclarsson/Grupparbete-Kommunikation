@@ -292,11 +292,8 @@ listForm.addEventListener('submit', (event) => {
 
 
   // Lyssna på lägg till nytt kort
-    // queryselecta "lägg til kort"-inputs + knappen
-    // Kalla på createItem med de values som finns i inputarna
-    
-
-
+  // queryselecta "lägg til kort"-inputs + knappen
+  // Kalla på createItem med de values som finns i inputarna
   // Lyssna på ta bort kort
   // Redigera och flytta kort
 

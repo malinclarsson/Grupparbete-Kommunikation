@@ -60,12 +60,13 @@
 
       let item = document.createElement('div'); // creates a new <div>, stored in 'item'. This is our 'cards'
       item.classList.add('item'); // give it the class 'item'
-      item.id = each.id; // the <div>'s content is the current indexed id's value.
 
       let itemTitle = document.createElement("h1"); // creates a new <h1>, stored in 'itemTitle'. This is our cards title
       let itemText = document.createElement("p"); // creates a new <p>, stored in 'itemText'. This is our cards description
       let itemTimestamp = document.createElement("p"); // creates a new <p>, stored in 'itemTimestamp'. This is our cards timestamp
 
+      item.id = each.id; // the <div>'s content is the current indexed id's value
+       
       itemTitle.textContent = each.title; // itemTitle's content is the current indexed title's value.
       itemText.textContent = each.text; // itemText's content is the current indexed text's value.
       itemTimestamp.textContent = each.timestamp; // itemTimestamp's content is the current indexed timestamp's value.

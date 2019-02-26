@@ -1,10 +1,7 @@
 //==================== arrays to keep lists and items ====================//
 
-let lists = [ // { id: "3nApQ", title: "list-title", timestamp: "13:37" }
-  // test --> { id: "3nApQ", title: "testlist 1", timestamp: "13:37", item: [],},
-  // test --> { id: "3nApQ", title: "testlist 2", timestamp: "13:37", item: [],}
-];
-let items; // <-- ha 'items' innuti 'lists'?
+let lists = [];
+ // let items = []; // <-- ha 'items' inuti 'lists'?
     // { id: "3nApQ", title: "list-title", timestamp: "13:37" }
 
   //let items = [];
@@ -23,7 +20,7 @@ let listdiv = document.querySelector(".lists");
 
     this.id = id();
     this.title = title;
-    //this.item = item; // <-- if I put the items in here
+    this.items = [];
   }
 //=========== constructor Item =========//
   function Item (title, text, belongsTo) {
@@ -53,9 +50,8 @@ let listdiv = document.querySelector(".lists");
     let date = new Date();
     let now = date.toLocaleDateString("sv-SE");
 
-    return date;        
+    return now;        
   }
-
 
   //=========== input =========//
   let listForm = document.querySelector('.list-form');
@@ -68,19 +64,6 @@ let listdiv = document.querySelector(".lists");
     createList(listInput.value);
     listInput.value = "";
   }); 
-  //=========== inside items =========//
-  document.addEventListener('click', function (e) { // <-- borde inte lyssna på document kanske?                <------------------------------------------------------------------------------  
-    console.log("listened to input");
-
-    if (e.target.classList.contains("add-item-button")) {
-      let parent = e.target.parentElement;
-      let parentId = e.target.parentElement.parentElement.id;
-      let itemTitle = parent.querySelector(".add-item-title").value;
-      let itemText = parent.querySelector(".add-item-text").value;
-
-      createItem();  
-    } 
-  });
 
 //================================ render ================================//
 //=========== function render =========//
@@ -89,7 +72,6 @@ function render () {
 
     listdiv.innerHTML = "";
     renderList(lists);
-    renderItems(items);
   }
 
 //=========== function renderList =========//
@@ -111,17 +93,38 @@ function renderList (lists) {
 
     list.appendChild(listRemove);
     list.appendChild(listTitle);
+    list.appendChild(renderItems(each.items)); // skapar INNNAN vi appendar
     list.appendChild(addItemBox());
+    
+    listRemove.addEventListener('click', function (e) {
+  
+      let id = e.target.parentElement.id;
+      let index = 0;
+  
+      for (let list of lists) {
+        if (list.id === id) {
+          lists.splice(index, 1); //tar inte bort korten, men dessa syns inte/genereras inte. 
+        }
+        index++;
+      }
+      render();
+    }); 
 
-    listdiv.appendChild(list);
+    listdiv.appendChild(list);        
     }  
+    
+  dragula(document.querySelectorAll('item-container'));
 }
 
 //=========== function renderItems =========//
 function renderItems (items) {
   console.log("renderItems()");
+  console.log(items);
 
-  for (let each in items) {
+  let itemsContainer = document.createElement('div');
+  itemsContainer.classList.add("item-container");
+
+  for (let each of items) {
 
     let item = document.createElement('div');
     item.classList.add('item');
@@ -139,14 +142,35 @@ function renderItems (items) {
     item.appendChild(itemText);
     item.appendChild(itemTimestamp);
 
-    let target = document.querySelector("#" + belongsTo);
-    target.appendChild(item);
-
     let itemRemove = document.createElement('i');
       item.appendChild(itemRemove);
       itemRemove.textContent = "remove";
       itemRemove.classList.add('material-icons');
-}
+
+      let editItem = document.createElement('button');
+      editItem.classList.add('editButton');
+      editItem.textContent = 'edit item';
+  
+  
+      let moveItem = document.createElement('button');
+      moveItem.classList.add('moveButton');
+      moveItem.textContent = 'move item';
+  
+      item.appendChild(editItem);
+      item.appendChild(moveItem);
+
+    itemRemove.addEventListener('click', function (e) {
+
+      let itemId = e.target.parentElement.id;
+      let listId = e.target.parentElement.parentElement.parentElement.id; // <--- Oscar special xD
+
+      removeItem(listId, cardId);
+    });
+
+    itemsContainer.appendChild(item);
+    }
+
+  return itemsContainer;
 }
 
 
@@ -164,7 +188,50 @@ function createList (title) {
   render();
 } 
 
+//=========== function findList =========//
+function findList (id) {
+  for (let each of lists) {
+    if (each.id === id) {
+      console.log(each);
+      return each;
+    }
+  }
+}
 
+function createItem (title, text, listId) {
+  let list = findList(listId);
+  let items = list.items;
+
+  // Skapa nya objekt med hjälp av Konstruktorn Item - och sedan pusha in dessa i Item-arrayn
+  let item = new Item(title, text);
+  items.push(item);   
+  
+  render();  
+}
+
+
+function editItem (listId, cardId) {
+  // Magic 
+}
+
+function removeItem (itemId, listId) {
+  for (let list of lists) {
+    if (list.id === listId) {
+
+      let index = 0;
+
+      for (let item of list.items) {
+        if (item.id === itemId) {
+          list.items.splice(index, 1);
+
+          render();
+        }
+        index++;
+
+      }
+    }
+  }
+}
 
 //================================ items ================================//
 //=========== function addItemBox =========//
@@ -191,67 +258,38 @@ function addItemBox () {
   addItem.appendChild(addItemText);
   addItem.appendChild(addItemButton);
 
+  addItemButton.addEventListener('click', function (e) { 
+
+      let parent = e.target.parentElement;
+      let parentId = e.target.parentElement.parentElement.id;
+      let itemTitle = parent.querySelector(".add-item-title").value;
+      let itemText = parent.querySelector(".add-item-text").value;
+
+      createItem(itemTitle, itemText, parentId);  //titel, text
+    })
+
   return addItem;
 }
 
- //=========== function createItem =========//
- function createItem (title, text, belongsTo) {
-  console.log("createItem()");
 
-  // Skapa nya objekt med hjälp av Konstruktorn Item - och sedan pusha in dessa i Item-arrayn
-  let item = new Item(title, text, belongsTo);
-  items.push(item);     // <-- cannot read property 'push' of undefined                                <----------------------------------------------------------------------
-  console.log(item);
-  console.log(items);
-  
-  render();  
+function editDialog () {
 
+  let shadow = document.createElement('div');
+  shadow.classList.add('shadow');
+
+  let dialog = document.createElement('div');
+  dialog.classList.add('dialog');
+
+  // Magic happens here
+
+  shadow.appendChild(dialog);
+  document.body.appendChild(shadow);
 }
-
-
-
-//================================ remove ================================//
-  //=========== function removeList =========//
-  listRemove.addEventListener('click', removeList);     // <-- listRemove is not defined               <----------------------------------------------------------------------
-
-  function removeList (id) {
-    console.log("listened to listRemove");
-    console.log("removeList()");
-
-    let index = 0;
-
-    for (let list in lists) {
-      if (list[id] === id) {
-        lists[index].pop(); //tar inte bort korten, men dessa syns inte/genereras inte. 
-      }
-      index++;
-    }
-    render();
-  }
-
-  //=========== function removeItem =========//
-  itemRemove.addEventListener('click', removeList);
-
-  function removeItem (id) {
-    console.log("listened to itemRemove");
-    console.log("removeItem()");
-
-    let index = 0;
-    
-    for (let item in items) {
-      if (item[id] === id) {
-        items[index].pop();
-      }
-      index++;
-    }
-    render();
-  }
-
-
+  
 
   //            To DO:
-  // Lyssna på lägg till nytt kort
-  // queryselecta "lägg til kort"-inputs + knappen
-  // Kalla på createItem med de values som finns i input
-  // Lyssna på ta bort kort <-- använda id
-  // Redigera och flytta kort <-- använda id + belongsTo
+ 
+  // Redigera kort []
+  // Flytta kort   [] <-- dragula
+
+  // Listremove funkar inte nu??
