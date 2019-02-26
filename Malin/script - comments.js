@@ -1,86 +1,4 @@
 
-/*
-//================ LISTS ================//
-let listForm = document.querySelector('.list-form');
-let listInput = document.querySelector('.list-inputText');
-let lists = document.querySelector('.lists');
-let list;
-
-let listHistory = [];
-
-listForm.addEventListener('submit', (event) => {
-  event.preventDefault();
-  let text = listInput.value;
-
-  if (text.length > 0) {
-    list = document.createElement('li');
-    list.classList.add('list');
-    list.textContent = text;
-
-    let listRemove = document.createElement('i');
-    list.appendChild(listRemove);
-    listRemove.textContent = "remove";
-    listRemove.classList.add('material-icons');
-
-    listRemove.addEventListener('click', () => {
-      list.remove();
-    })
-  }
-  
-    listHistory.push(list);
-    listInput.value = '';
-    listInput.focus();
-    lists.appendChild(list);
-
-    let itemForm = document.createElement('form');
-    itemForm.classList.add('item-form');
-    let itemInput = document.createElement('input');
-    itemInput.classList.add('item-input');
-    let items = document.createElement('ul');
-    items.classList.add('.items');
-    
-    list.appendChild(itemForm);
-    list.appendChild(items);
-    itemForm.appendChild(itemInput);   
-})
-//================ ITEMS ================//
-
-  let itemForm = document.createElement('form');
-  itemForm.classList.add('item-form');
-  let itemInput = document.createElement('input');
-  itemInput.classList.add('item-input');
-  let items = document.createElement('ul');
-
-
-  let itemHistory = [];
-
-  itemForm.addEventListener('submit', (event) => {
-    event.preventDefault();
-    let text = itemInput.value;
-
-      if (text.length > 0) {
-        let item = document.createElement('li');
-        item.classList.add('item');
-        item.textContent = text;
-
-        let itemRemove = document.createElement('i');
-        item.appendChild(itemRemove);
-        itemRemove.textContent = "remove";
-        itemRemove.setAttribute('class','material-icons');
-
-        itemRemove.addEventListener('click', () => {
-          item.remove();
-        });
-        
-        itemHistory.push(item);
-        itemInput.value = '';
-        itemInput.focus();
-        items.appendChild(item);
-      }
-    })
-
-
-    */
 //================ Hehe ================//
 
   
@@ -107,8 +25,8 @@ listForm.addEventListener('submit', (event) => {
       listRemove.classList.add('material-icons'); // give it the class 'material-icons'
       listRemove.textContent = "remove"; // the <i>'s content is "remove" - that specifies WHICH icon.
 
-      list.appendChild(listRemove); // place 'listRemove' in the 'list'-element
       list.appendChild(listTitle); // place 'listTitle' in the 'list'-element
+      list.appendChild(listRemove); // place 'listRemove' in the 'list'-element
       list.appendChild(addItemBox()); // place 'addItemBox' in the 'list'-element
       }  
   }

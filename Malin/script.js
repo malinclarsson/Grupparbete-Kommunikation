@@ -81,24 +81,32 @@ listForm.addEventListener('submit', (event) => {
 
 
     */
-//================ Hehe ================//
-  
-  let lists = [];
+//========================== lists ==========================//
+  let item;
+  let lists = [
+
+    item, [],
+  ];
     // { id: "3nApQ", title: "list-title", timestamp: "13:37" }
 
-  let items = [];
+  //let items = [];
     // { id: "2jMN2", title: "title", text: "loremipsum", timestamp: "13:37", belongsTo: "id" }
   
     
   let listdiv = document.querySelector(".lists");
 
+  //=========== function render =========//
   function render () {
+    console.log("function render");
+
     listdiv.innerHTML = "";
     renderList(lists);
     renderItems(items);
   }
-
+  //=========== function renderList =========//
   function renderList (lists) {
+    console.log("function renderList");
+
     for (let each of lists) {
       let list = document.createElement('div');
       list.classList.add('list');
@@ -119,8 +127,10 @@ listForm.addEventListener('submit', (event) => {
       listdiv.appendChild(list);
       }  
   }
-
+  //=========== function addItemBox =========//
   function addItemBox () {
+    console.log("function addItemBox");
+
     let addItem = document.createElement("div");
     addItem.classList.add("add-item");
 
@@ -143,8 +153,10 @@ listForm.addEventListener('submit', (event) => {
 
     return addItem;
   }
-
+  //=========== function renderItems =========//
   function renderItems (items) {
+    console.log("function renderItems");
+
     for (let each in items) {
 
       let item = document.createElement('div');
@@ -172,8 +184,10 @@ listForm.addEventListener('submit', (event) => {
         itemRemove.classList.add('material-icons');
   }
 }
-
+  //=========== function createList =========//
   function createList (title) {
+    console.log("function createList");
+
     // Skapa nya objekt med hjälp av Konstruktorn List - och sedan pusha in dessa i List-arrayn
     let list = new List(title);
     console.log("I'm being called");
@@ -181,15 +195,19 @@ listForm.addEventListener('submit', (event) => {
     console.log(list);
     render();
   }
-
+  //=========== function createItem =========//
   function createItem (title, text, belongsTo) {
+    console.log("function createItem");
+
     // Skapa nya objekt med hjälp av Konstruktorn Item - och sedan pusha in dessa i Item-arrayn
     let item = new Item(title, text, belongsTo);
     items.push(item);      
     render();  
   }
-
+  //=========== function removeList =========//
   function removeList (id) {
+    console.log("function removeList");
+
     let index = 0;
 
     for (let list in lists) {
@@ -200,8 +218,10 @@ listForm.addEventListener('submit', (event) => {
     }
     render();
   }
-
+  //=========== function removeItem =========//
   function removeItem (id) {
+    console.log("function removeItem");
+
     let index = 0;
     
     for (let item in items) {
@@ -212,26 +232,35 @@ listForm.addEventListener('submit', (event) => {
     }
     render();
   }
-
+  //=========== function id =========//
   function id () {
+    console.log("function id");
+
     let number = Math.random() 
     let id = number.toString(36).substr(1, 6);
     return id; // returnerar id på 5 tecken    
   }
-
+  //=========== function timestamp =========//
   function timestamp () {
+    console.log("function timestamp");
+
     let date = new Date();
     let now = date.toLocaleDateString("sv-SE");
 
     return date;        
   }
-
+  //=========== function List =========//
   function List (title) {
+    console.log("function List");
+
     this.id = id();
     this.title = title;
+    this.item = item []; // <-- if I put the items in here
   }
-
+  //=========== function Item =========//
   function Item (title, text, belongsTo) {
+    console.log("function Item");
+
     this.id = id();
     this.title = title;
     this.text = text;
@@ -247,16 +276,16 @@ listForm.addEventListener('submit', (event) => {
     listInput.value = "";
   }); 
   
-  document.addEventListener('click', function (e) {
-        if (e.target.classList.contains(".add-item-button")) {
+  document.addEventListener('click', function (e) { //<-----------------  Här är vi nu.
+        if (e.target.classList.contains("add-item-button")) {
           let parent = e.target.parentElement;
           let parentId = e.target.parentElement.parentElement.id;
-          let itemTitle = parent.querySelector(".add-item-tiel").value;
+          let itemTitle = parent.querySelector(".add-item-title").value;
           let itemText = parent.querySelector(".add-item-text").value;
 
           console.log('button is clicked');
 
-          createItem(parentTitle, parentText, parentId);  //<-----------------  Här är vi nu.
+          createItem();  
         } 
 
   });
