@@ -37,7 +37,7 @@ let listdiv = document.querySelector(".lists");
   }
 
 
-//================================ constructor functions ================================//
+//================================ functions inside List & Items ================================//
   //=========== function id =========//
   function id () {
     console.log("id()");
@@ -57,7 +57,7 @@ let listdiv = document.querySelector(".lists");
   }
 
 
-  //=========== form =========//
+  //=========== input =========//
   let listForm = document.querySelector('.list-form');
   let listInput = document.querySelector('.list-inputText');
 
