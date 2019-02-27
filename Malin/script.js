@@ -255,7 +255,7 @@ listForm.addEventListener('submit', (event) => {
 
     this.id = id();
     this.title = title;
-    this.item = item []; // <-- if I put the items in here
+    this.item = item []; 
   }
   //=========== function Item =========//
   function Item (title, text, belongsTo) {

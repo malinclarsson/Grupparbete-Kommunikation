@@ -95,6 +95,25 @@ footer {
     margin-left: 5px;
     margin-bottom: 5px;
 }
+.add-item {
+    margin-top: 5px;
+}
+.add-item-title {
+    width: 150px;
+    padding: 5px;
+    border: solid grey 1px;
+    border-radius: 5px;
+    color: #696969;
+    background-color: lightgray;
+}
+.add-item-text {
+    width: 150px;
+    padding: 5px;
+    border: solid grey 1px;
+    border-radius: 5px;
+    color: #696969;
+    background-color: lightgray;
+}
 h1 {
     margin-top: 0;
     margin-bottom: 5px;

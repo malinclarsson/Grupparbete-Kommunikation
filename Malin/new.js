@@ -1,4 +1,4 @@
-//==================== arrays to keep lists and items ====================//
+//==================== array to keep lists ====================//
 
 let lists = [];
  // let items = []; // <-- ha 'items' inuti 'lists'?
@@ -164,7 +164,7 @@ function renderItems (items) {
       let itemId = e.target.parentElement.id;
       let listId = e.target.parentElement.parentElement.parentElement.id; // <--- Oscar special xD
 
-      removeItem(listId, cardId);
+      removeItem(listId, itemId);
     });
 
     itemsContainer.appendChild(item);
@@ -174,8 +174,6 @@ function renderItems (items) {
 }
 
 
-
-//================================ lists ================================//
 //=========== function createList =========//
 function createList (title) {
   console.log("createList()");
@@ -198,6 +196,7 @@ function findList (id) {
   }
 }
 
+//=========== function createItem =========//
 function createItem (title, text, listId) {
   let list = findList(listId);
   let items = list.items;
@@ -209,12 +208,15 @@ function createItem (title, text, listId) {
   render();  
 }
 
-
-function editItem (listId, cardId) {
+//=========== function editItem=========//
+function editItem (listId, itemId) {
   // Magic 
 }
 
-function removeItem (itemId, listId) {
+//=========== function removeItem =========//
+function removeItem (listId, itemId) {
+  console.log('remove item');
+
   for (let list of lists) {
     if (list.id === listId) {
 
@@ -233,7 +235,7 @@ function removeItem (itemId, listId) {
   }
 }
 
-//================================ items ================================//
+
 //=========== function addItemBox =========//
 function addItemBox () {
   console.log("addItemBox()");
@@ -271,7 +273,7 @@ function addItemBox () {
   return addItem;
 }
 
-
+//=========== function editDialog =========//
 function editDialog () {
 
   let shadow = document.createElement('div');
@@ -280,7 +282,7 @@ function editDialog () {
   let dialog = document.createElement('div');
   dialog.classList.add('dialog');
 
-  // Magic happens here
+  // Magic 
 
   shadow.appendChild(dialog);
   document.body.appendChild(shadow);
@@ -288,8 +290,5 @@ function editDialog () {
   
 
   //            To DO:
- 
   // Redigera kort []
-  // Flytta kort   [] <-- dragula
-
-  // Listremove funkar inte nu??
+  // Flytta kort   [] <-- dragula?
