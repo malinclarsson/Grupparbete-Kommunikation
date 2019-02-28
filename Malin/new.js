@@ -131,7 +131,9 @@ function renderItems (items) {
     item.id = each.id;
 
     let itemTitle = document.createElement("h1");
+    itemTitle.classList.add('item-title');
     let itemText = document.createElement("p");
+    itemText.classList.add('item-text');
     let itemTimestamp = document.createElement("p");
 
     itemTitle.textContent = each.title;
@@ -143,21 +145,38 @@ function renderItems (items) {
     item.appendChild(itemTimestamp);
 
     let itemRemove = document.createElement('i');
-      item.appendChild(itemRemove);
-      itemRemove.textContent = "remove";
-      itemRemove.classList.add('material-icons');
+    item.appendChild(itemRemove);
+    itemRemove.textContent = "remove";
+    itemRemove.classList.add('material-icons');
 
-      let editItem = document.createElement('button');
-      editItem.classList.add('editButton');
-      editItem.textContent = 'edit item';
-  
-  
-      let moveItem = document.createElement('button');
-      moveItem.classList.add('moveButton');
-      moveItem.textContent = 'move item';
-  
-      item.appendChild(editItem);
-      item.appendChild(moveItem);
+    let editItem = document.createElement('button');
+    editItem.classList.add('editButton');
+    editItem.textContent = 'edit item';
+
+    let moveItem = document.createElement('button');
+    moveItem.classList.add('moveButton');
+    moveItem.textContent = 'move item';
+
+    item.appendChild(editItem);
+    item.appendChild(moveItem);
+
+    editItem.addEventListener('click', function (e) {
+      let itemId = e.target.parentElement.id;
+      let listId = e.target.parentElement.parentElement.parentElement.id; // <--- Oscar special xD
+
+      editDialog(listId, itemId);
+    });
+
+    moveItem.addEventListener('click', function (e) {
+      let itemId = e.target.parentElement.id;
+      let listId = e.target.parentElement.parentElement.parentElement.id; // <--- Oscar special xD
+      let papi = e.target.parentElement; // <--- Malin special "papiiiii" xD
+      let itemTitle = papi.querySelector(".item-title").textContent;
+      let itemText = papi.querySelector(".item-text").textContent;
+
+
+      moveDialog(listId, itemId, itemTitle, itemText);
+    });
 
     itemRemove.addEventListener('click', function (e) {
 
@@ -209,8 +228,19 @@ function createItem (title, text, listId) {
 }
 
 //=========== function editItem=========//
-function editItem (listId, itemId) {
-  // Magic 
+function editItem (listId, itemId, newTitle, newText) {
+  for (let list of lists) {
+    if (list.id === listId) {
+
+      for (let item of list.items) {
+        if (item.id === itemId) {
+          item.title = newTitle;
+          item.text = newText;
+        }
+      }
+    }
+  }
+  render();
 }
 
 //=========== function removeItem =========//
@@ -274,7 +304,7 @@ function addItemBox () {
 }
 
 //=========== function editDialog =========//
-function editDialog () {
+function editDialog (listId, itemId) {
 
   let shadow = document.createElement('div');
   shadow.classList.add('shadow');
@@ -282,13 +312,77 @@ function editDialog () {
   let dialog = document.createElement('div');
   dialog.classList.add('dialog');
 
-  // Magic 
+  let editItemTitle = document.createElement('h1');
+  editItemTitle.classList.add('edit-item-title');
+  editItemTitle.textContent = "edit Title and Description";
+
+  let editTitleInput = document.createElement('input');
+  editTitleInput.classList.add('edit-title-input');
+  let editTextInput = document.createElement('input');
+  editTextInput.classList.add('edit-text-input');
+  
+  let editButton = document.createElement('input');
+  editButton.type = "button";
+  editButton.value = "edit";
+  
+  dialog.appendChild(editItemTitle);
+  dialog.appendChild(editTitleInput);
+  dialog.appendChild(editTextInput);
+  dialog.appendChild(editButton);
+
+  editButton.addEventListener('click', function (e) {
+    let newTitle = document.querySelector('.edit-title-input').value;
+    let newText = document.querySelector('.edit-text-input').value;
+    
+    editItem(listId, itemId, newTitle, newText); //listId, itemId, newTitle, newText
+    e.target.parentElement.parentElement.remove();
+  })
 
   shadow.appendChild(dialog);
   document.body.appendChild(shadow);
 }
-  
 
-  //            To DO:
-  // Redigera kort []
-  // Flytta kort   [] <-- dragula?
+//=========== function moveDialog =========//    <---------------------  MOVE
+function moveDialog (oldList, itemId, title, text) {
+
+  let shadow = document.createElement('div');
+  shadow.classList.add('shadow');
+
+  let dialog = document.createElement('div');
+  dialog.classList.add('dialog');
+
+  let moveItemTitle = document.createElement('h1');
+  moveItemTitle.classList.add('move-item-title');
+  moveItemTitle.textContent = "move item";
+  
+  let selectList = document.createElement('select');
+  selectList.classList.add('select-list');
+  
+  for (let list of lists) {
+    let option = document.createElement('option');
+    option.classList.add('option');
+    option.textContent = list.title;
+    option.value = list.id;
+
+    selectList.appendChild(option);
+  }
+
+  let moveButton = document.createElement('input');
+  moveButton.type = "button";
+  moveButton.value = "move";
+  
+  dialog.appendChild(moveItemTitle);
+  dialog.appendChild(selectList);
+  dialog.appendChild(moveButton);
+
+  moveButton.addEventListener('click', function (e) {
+    let newList = document.querySelector('.select-list').value;
+
+    createItem(title, text, newList);
+    removeItem(oldList, itemId);
+    e.target.parentElement.parentElement.remove();
+  })
+
+  shadow.appendChild(dialog);
+  document.body.appendChild(shadow);
+}
