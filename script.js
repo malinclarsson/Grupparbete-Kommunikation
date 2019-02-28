@@ -1,16 +1,8 @@
 //==================== array to keep lists ====================//
-
 let lists = [];
- // let items = []; // <-- ha 'items' inuti 'lists'?
-    // { id: "3nApQ", title: "list-title", timestamp: "13:37" }
-
-  //let items = [];
-    // { id: "2jMN2", title: "title", text: "loremipsum", timestamp: "13:37", belongsTo: "id" }
-
 
 //================================ finds the list-div in html ================================//
 let listdiv = document.querySelector(".lists");
-
 
 
 //================================ constructors ================================//
@@ -93,7 +85,7 @@ function renderList (lists) {
 
     list.appendChild(listRemove);
     list.appendChild(listTitle);
-    list.appendChild(renderItems(each.items)); // skapar INNNAN vi appendar
+    list.appendChild(renderItems(each.items)); // skapar INNNAN den appendar
     list.appendChild(addItemBox());
     
     listRemove.addEventListener('click', function (e) {
@@ -103,7 +95,7 @@ function renderList (lists) {
   
       for (let list of lists) {
         if (list.id === id) {
-          lists.splice(index, 1); //tar inte bort korten, men dessa syns inte/genereras inte. 
+          lists.splice(index, 1); 
         }
         index++;
       }
@@ -112,8 +104,6 @@ function renderList (lists) {
 
     listdiv.appendChild(list);        
     }  
-    
-  dragula(document.querySelectorAll('item-container'));
 }
 
 //=========== function renderItems =========//
@@ -170,9 +160,9 @@ function renderItems (items) {
     moveItem.addEventListener('click', function (e) {
       let itemId = e.target.parentElement.id;
       let listId = e.target.parentElement.parentElement.parentElement.id; // <--- Oscar special xD
-      let papi = e.target.parentElement; // <--- Malin special "papiiiii" xD
-      let itemTitle = papi.querySelector(".item-title").textContent;
-      let itemText = papi.querySelector(".item-text").textContent;
+      let parent = e.target.parentElement; // <--- Malin special ;)
+      let itemTitle = parent.querySelector(".item-title").textContent;
+      let itemText = parent.querySelector(".item-text").textContent;
 
 
       moveDialog(listId, itemId, itemTitle, itemText);
@@ -197,7 +187,6 @@ function renderItems (items) {
 function createList (title) {
   console.log("createList()");
 
-  // Skapa nya objekt med hjälp av Konstruktorn List - och sedan pusha in dessa i List-arrayn
   let list = new List(title);
   lists.push(list);
   console.log(list);
@@ -220,7 +209,6 @@ function createItem (title, text, listId) {
   let list = findList(listId);
   let items = list.items;
 
-  // Skapa nya objekt med hjälp av Konstruktorn Item - och sedan pusha in dessa i Item-arrayn
   let item = new Item(title, text);
   items.push(item);   
   
@@ -265,7 +253,6 @@ function removeItem (listId, itemId) {
   }
 }
 
-
 //=========== function addItemBox =========//
 function addItemBox () {
   console.log("addItemBox()");
@@ -297,7 +284,7 @@ function addItemBox () {
       let itemTitle = parent.querySelector(".add-item-title").value;
       let itemText = parent.querySelector(".add-item-text").value;
 
-      createItem(itemTitle, itemText, parentId);  //titel, text
+      createItem(itemTitle, itemText, parentId);
     })
 
   return addItem;
@@ -334,7 +321,7 @@ function editDialog (listId, itemId) {
     let newTitle = document.querySelector('.edit-title-input').value;
     let newText = document.querySelector('.edit-text-input').value;
     
-    editItem(listId, itemId, newTitle, newText); //listId, itemId, newTitle, newText
+    editItem(listId, itemId, newTitle, newText); 
     e.target.parentElement.parentElement.remove();
   })
 
@@ -342,7 +329,7 @@ function editDialog (listId, itemId) {
   document.body.appendChild(shadow);
 }
 
-//=========== function moveDialog =========//    <---------------------  MOVE
+//=========== function moveDialog =========//  
 function moveDialog (oldList, itemId, title, text) {
 
   let shadow = document.createElement('div');
